@@ -1,0 +1,23 @@
+[
+  {
+    "from": "priya.nair@designhaus.co",
+    "to": "sales@applestore.com",
+    "subject": "iPad Pro for creative team",
+    "body": "Hello, I'm Priya Nair, Creative Director at DesignHaus. We're a boutique branding agency with 8 designers. We're looking to equip the team with iPads for client presentations and illustration work. Our budget is flexible — quality matters more than price. We love Apple products already, most of us use iPhones.",
+    "date": "2026-05-25"
+  },
+  {
+    "from": "sales@applestore.com",
+    "to": "priya.nair@designhaus.co",
+    "subject": "Re: iPad Pro for creative team",
+    "body": "Hi Priya, sounds like a wonderful use case! The iPad Pro with Apple Pencil Pro is tailor-made for creative professionals. Combined with apps like Procreate or Adobe Fresco, it's a game-changer for design work. Since your team already loves Apple, the ecosystem integration will feel seamless. Would love to show you a demo.",
+    "date": "2026-05-26"
+  },
+  {
+    "from": "priya.nair@designhaus.co",
+    "to": "sales@applestore.com",
+    "subject": "Re: iPad Pro for creative team",
+    "body": "Yes, a demo would be amazing! We'd also love to know about any accessories — keyboards, stands, etc. And one of our designers asked if there's an education or business discount available. Also keen to know the difference between the M4 models. We want the best experience possible for the team.",
+    "date": "2026-05-27"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "from": "james.okafor@okaforlaw.com",
+    "to": "sales@applestore.com",
+    "subject": "iPhone upgrade for law firm staff",
+    "body": "Good afternoon. I'm James Okafor, managing partner at Okafor & Associates, a law firm with 22 staff members. We're due for a device refresh and considering moving everyone to iPhone 16. Our current budget is approximately $800 per device. Security and data privacy are non-negotiable for us given client confidentiality requirements. Please advise.",
+    "date": "2026-05-18"
+  },
+  {
+    "from": "sales@applestore.com",
+    "to": "james.okafor@okaforlaw.com",
+    "subject": "Re: iPhone upgrade for law firm staff",
+    "body": "Good afternoon Mr. Okafor, thank you for considering Apple for your firm's refresh. iPhone 16 with iOS 18 offers best-in-class security features including Lockdown Mode, on-device processing, and Advanced Data Protection for iCloud — all critical for client confidentiality. We can also support MDM deployment for your full team. Happy to walk you through options.",
+    "date": "2026-05-19"
+  },
+  {
+    "from": "james.okafor@okaforlaw.com",
+    "to": "sales@applestore.com",
+    "subject": "Re: iPhone upgrade for law firm staff",
+    "body": "Thank you for the prompt response. That is reassuring. I'd also like to understand AppleCare+ for Business options — we need reliable support if devices fail. Ideally we'd want a single point of contact for our account. Is that something you offer? We are prepared to move quickly if terms are right.",
+    "date": "2026-05-20"
+  }
+]

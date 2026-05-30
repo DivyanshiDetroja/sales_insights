@@ -1,0 +1,23 @@
+[
+  {
+    "from": "alex.morgan@nexagen.io",
+    "to": "sales@applestore.com",
+    "subject": "MacBook fleet for our engineering team",
+    "body": "Hi, my name is Alex Morgan, CTO at NexaGen. We're a 14-person SaaS startup and are looking to replace our aging Windows laptops with MacBooks for our engineering team. Budget is around $2,500 per device. We care a lot about performance and battery life since our devs work remotely and travel often. Looking forward to hearing your recommendations.",
+    "date": "2026-05-20"
+  },
+  {
+    "from": "sales@applestore.com",
+    "to": "alex.morgan@nexagen.io",
+    "subject": "Re: MacBook fleet for your engineering team",
+    "body": "Hi Alex, thanks for reaching out! Happy to help NexaGen find the right setup. Given your team's needs, the MacBook Pro 14\" M4 Pro would be an excellent fit — outstanding performance and all-day battery. Would you like to schedule a call to go over options and volume pricing?",
+    "date": "2026-05-21"
+  },
+  {
+    "from": "alex.morgan@nexagen.io",
+    "to": "sales@applestore.com",
+    "subject": "Re: Re: MacBook fleet for your engineering team",
+    "body": "That sounds great. One thing — we've had some bad experiences with vendors who don't provide good post-sale support. Support and warranty coverage is really important to us. Also, do you offer any kind of business setup or MDM assistance? We don't have an in-house IT team. Let's do a call this week.",
+    "date": "2026-05-22"
+  }
+]
