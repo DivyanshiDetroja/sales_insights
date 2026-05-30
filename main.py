@@ -1,9 +1,12 @@
 import json
 import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, UploadFile, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 import anthropic
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -64,12 +67,13 @@ async def analyze(
 
     message = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=2048,
+        max_tokens=4096,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_content}],
     )
 
-    result = json.loads(message.content[0].text)
+    text = message.content[0].text.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+    result = json.loads(text)
     return result
 
 
