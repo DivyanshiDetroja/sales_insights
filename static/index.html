@@ -1,11 +1,396 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sales Insight Engine</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary": "#4f5054", "primary-fixed": "#d7e3ff", "on-primary-container": "#dfe8ff",
+          "inverse-on-surface": "#f3f0f2", "tertiary-container": "#68686d", "on-primary": "#ffffff",
+          "secondary": "#5d5e60", "surface-variant": "#e4e2e4", "secondary-fixed-dim": "#c6c6c8",
+          "on-tertiary-container": "#e9e8ed", "on-background": "#1b1b1d", "primary-fixed-dim": "#aac7ff",
+          "tertiary-fixed": "#e3e2e7", "on-error-container": "#93000a", "background": "#fcf8fb",
+          "on-primary-fixed-variant": "#00458e", "on-surface": "#1b1b1d", "surface-container": "#f0edef",
+          "on-secondary-fixed": "#1a1c1d", "error-container": "#ffdad6", "surface-container-high": "#eae7ea",
+          "on-surface-variant": "#414753", "surface-container-low": "#f6f3f5", "on-secondary": "#ffffff",
+          "surface-container-lowest": "#ffffff", "surface": "#fcf8fb", "secondary-container": "#dfdfe1",
+          "on-primary-fixed": "#001b3e", "primary-container": "#0066cc", "on-secondary-fixed-variant": "#454749",
+          "surface-bright": "#fcf8fb", "error": "#ba1a1a", "surface-dim": "#dcd9dc",
+          "secondary-fixed": "#e2e2e4", "on-tertiary-fixed": "#1a1b1f", "on-error": "#ffffff",
+          "outline-variant": "#c1c6d5", "inverse-surface": "#303032", "on-tertiary": "#ffffff",
+          "surface-container-highest": "#e4e2e4", "surface-tint": "#005cba", "inverse-primary": "#aac7ff",
+          "primary": "#004e9f", "on-secondary-container": "#616365", "tertiary-fixed-dim": "#c7c6cb",
+          "outline": "#727784", "on-tertiary-fixed-variant": "#46464b"
+        },
+        borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        spacing: {
+          "stack-gap-sm": "12px", "page-padding-v": "80px", "container-max-width": "800px",
+          "card-padding": "32px", "page-padding-h": "24px", "stack-gap-md": "24px", "stack-gap-lg": "48px"
+        },
+        fontFamily: { "sans": ["Inter"] },
+        fontSize: {
+          "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+          "body-lg": ["17px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "400" }],
+          "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+          "body-sm": ["14px", { lineHeight: "20px", letterSpacing: "0", fontWeight: "400" }],
+          "display-lg": ["48px", { lineHeight: "52px", letterSpacing: "-0.02em", fontWeight: "600" }],
+          "title-md": ["20px", { lineHeight: "28px", letterSpacing: "0", fontWeight: "500" }]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { background-color: #fcf8fb; color: #1b1b1d; -webkit-font-smoothing: antialiased; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .soft-shadow { box-shadow: 0px 4px 24px rgba(0,0,0,0.04); }
+  .soft-card { background: #ffffff; box-shadow: 0px 4px 24px rgba(0,0,0,0.04); border: 1px solid #D2D2D7; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .soft-card:hover { box-shadow: 0px 8px 32px rgba(0,0,0,0.06); transform: translateY(-2px); }
+  .glass-highlight { background: rgba(0,78,159,0.03); border-left: 4px solid #004e9f; }
+  .input-glow:focus-within { box-shadow: 0 0 0 4px rgba(0,92,186,0.08); }
+  .skeleton { background: linear-gradient(90deg, #eae7ea 25%, #f0edef 50%, #eae7ea 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .fade-in { animation: fadeIn 0.4s ease forwards; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
 </head>
-<body>
-  <h1>Sales Insight Engine</h1>
-  <p>Placeholder — backend is live.</p>
+<body class="min-h-screen flex flex-col font-sans text-body-lg">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface flex justify-center px-page-padding-h py-6 border-b border-outline-variant/30">
+  <div class="flex justify-between items-center w-full max-w-[800px]">
+    <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Sales Insight Engine</h1>
+    <span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:opacity-70 transition-opacity">account_circle</span>
+  </div>
+</header>
+
+<!-- ── INPUT VIEW ── -->
+<div id="input-view">
+  <main class="flex-grow pt-[120px] pb-page-padding-v px-page-padding-h flex flex-col items-center">
+    <div class="w-full max-w-[800px] flex flex-col gap-stack-gap-lg">
+
+      <!-- Stepper -->
+      <div class="flex items-center justify-center gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-sm">1</div>
+          <span class="font-label-caps text-label-caps text-primary">Input Details</span>
+        </div>
+        <div class="h-[1px] w-12 bg-outline-variant"></div>
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold text-sm">2</div>
+          <span class="font-label-caps text-label-caps text-on-surface-variant">Insights</span>
+        </div>
+      </div>
+
+      <!-- Hero text -->
+      <div class="text-center space-y-2">
+        <h2 class="font-display-lg text-display-lg text-on-surface">Precision begins here.</h2>
+        <p class="text-secondary max-w-[560px] mx-auto">Provide context about your client or upload an existing interaction thread to generate a high-impact B2B sales strategy.</p>
+      </div>
+
+      <!-- Form card -->
+      <div class="bg-surface-container-lowest rounded-[32px] p-card-padding soft-shadow border border-[#D2D2D7] input-glow transition-all duration-300">
+        <form id="insightForm" class="flex flex-col gap-stack-gap-md">
+
+          <!-- Context textarea -->
+          <div class="flex flex-col gap-2">
+            <label class="font-label-caps text-label-caps text-secondary px-2">CLIENT CONTEXT</label>
+            <textarea id="contextInput" name="context" class="w-full min-h-[160px] p-6 rounded-[24px] bg-surface-container-low border-none focus:ring-2 focus:ring-primary-container text-body-lg placeholder:text-on-surface-variant/40 resize-none transition-all duration-200" placeholder="Add any context about this client… (e.g., industry pain points, recent acquisitions, current tech stack)"></textarea>
+          </div>
+
+          <!-- Budget + Profession -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap-md">
+            <div class="flex flex-col gap-2">
+              <label class="font-label-caps text-label-caps text-secondary px-2">CLIENT BUDGET</label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant material-symbols-outlined">payments</span>
+                <input id="budgetInput" name="budget" class="w-full h-14 pl-12 pr-6 rounded-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary-container text-body-lg" placeholder="e.g. $50k – $100k" type="text"/>
+              </div>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="font-label-caps text-label-caps text-secondary px-2">CLIENT PROFESSION</label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant material-symbols-outlined">work</span>
+                <input id="professionInput" name="profession" class="w-full h-14 pl-12 pr-6 rounded-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary-container text-body-lg" placeholder="e.g. CTO, Creative Director" type="text"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upload + Submit -->
+          <div class="flex flex-col md:flex-row items-center gap-stack-gap-md mt-2">
+            <label class="flex-grow w-full md:w-auto cursor-pointer">
+              <input id="emailFile" type="file" accept=".json" class="hidden"/>
+              <div id="uploadLabel" class="flex items-center justify-center gap-2 h-14 px-6 rounded-full bg-secondary-fixed text-primary font-medium hover:bg-secondary-fixed-dim transition-colors w-full">
+                <span class="material-symbols-outlined">upload_file</span>
+                <span class="text-body-lg" id="uploadText">Upload Email Thread (JSON)</span>
+              </div>
+            </label>
+            <button id="submitBtn" class="w-full md:w-auto flex items-center justify-center gap-2 h-14 px-10 rounded-full bg-primary-container text-on-primary font-semibold hover:opacity-90 active:scale-95 transition-all shadow-md" type="submit">
+              <span class="text-body-lg">Generate Insights</span>
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+
+          <!-- Error message -->
+          <p id="errorMsg" class="hidden text-center text-sm text-error mt-1"></p>
+
+        </form>
+      </div>
+
+      <!-- Decorative images -->
+      <div class="grid grid-cols-3 gap-stack-gap-md">
+        <div class="h-32 rounded-[24px] bg-surface-container-high overflow-hidden relative group">
+          <img alt="Strategic Analysis" class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApmknb8Zqzf9Oe3g4KCxNEtGLIGHhe6fiWF614PSfz3iLKvNyueaO7yXZ94jO7mHIzdMvunByF_r055XFzr552beGoACWxSyHv0AKgCOVA3XLbEKj6mREi1_X-ndXNfAwFoxfrc9H8Gi4S8qifN6qZ9FYyJrqtlYnftX4kkVt8rBADELp73XvIk4NYHK2ZLDNtv4AaWPDUgoWwZ2knM1RpekHKf62v-UhypJ2P6FikvhrifB6w29zKC1PNEHevMMem-6E4qXx7bZOu"/>
+          <div class="absolute inset-0 flex items-center justify-center bg-black/10">
+            <span class="font-label-caps text-label-caps text-white">CASE STUDIES</span>
+          </div>
+        </div>
+        <div class="h-32 rounded-[24px] bg-surface-container-high overflow-hidden relative group">
+          <img alt="Data Visualization" class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0rGkA2cOI6UMOnqccpQ3QDDR_MFyELkxa-h5DL-rPHJi3xkIjNLW8TJ687O1AbgcS2SgjYzq-Z1OppveVngcZRLc1GMdGvkxQKg3UNGSvG36J9aExNZEB_LvqEixzylBDjAhFRIQR0SZE5N-hUvzwSuQDp-qfdWabBYBsCRb8ftXQzrzk-SpkgxsSJAC8fCqkHm9P7aPikYMu5ADe6NVInoTkair3tpsOzwdbxQJEv3jn3lEQZYGMNzuGlNZZT4O2hlvAXyjXLj0D"/>
+          <div class="absolute inset-0 flex items-center justify-center bg-black/10">
+            <span class="font-label-caps text-label-caps text-white">TREND REPORTS</span>
+          </div>
+        </div>
+        <div class="h-32 rounded-[24px] bg-surface-container-high overflow-hidden relative group">
+          <img alt="Collaborative Space" class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3gxOesbkwqhPHZrJpuRuFsa56BR1SnJLXj-x_-cHORgaEQmcdnYPVl_Alj2xZO1PxkypWxYnPH250GIK5RY4HFAaqAq2fgD2w79ccSGE2Mv_bI6A_BWrbiY-ruWXOy_pk8OuOmHdc_jTc6aVa6gvZx-3kv3vrLKAFwmfXTTNSCKC4BQ3yJ_Z09Ou3EuW_b0QpoV903m01uSaG5F0e-5Su2Sou5Sq2RL7vvxrLLrM518Y-AbQixn051VgC1fi6gx2T6_F2XlDAcFAp"/>
+          <div class="absolute inset-0 flex items-center justify-center bg-black/10">
+            <span class="font-label-caps text-label-caps text-white">RESOURCES</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ── OUTPUT VIEW (hidden until results) ── -->
+<div id="output-view" class="hidden">
+  <main class="flex-grow pt-[120px] pb-page-padding-v px-page-padding-h flex flex-col items-center">
+    <div class="w-full max-w-[800px] flex flex-col gap-stack-gap-lg">
+
+      <!-- Stepper -->
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold text-sm">1</div>
+          <span class="font-label-caps text-label-caps text-on-surface-variant">Input Details</span>
+        </div>
+        <div class="h-[1px] w-12 bg-primary"></div>
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-sm">2</div>
+          <span class="font-label-caps text-label-caps text-primary">Insights</span>
+        </div>
+      </div>
+
+      <!-- Hero -->
+      <section>
+        <h2 class="font-display-lg text-display-lg mb-2">Strategy Overview</h2>
+        <p class="text-on-surface-variant">Tailored insights for the upcoming Apple B2B engagement.</p>
+      </section>
+
+      <!-- SKELETON STATE -->
+      <div id="skeleton-state">
+        <div class="flex flex-col gap-stack-gap-md">
+          <div class="skeleton h-48 w-full"></div>
+          <div class="skeleton h-24 w-full"></div>
+          <div class="skeleton h-40 w-full"></div>
+          <div class="grid grid-cols-3 gap-stack-gap-md">
+            <div class="skeleton h-40"></div>
+            <div class="skeleton h-40"></div>
+            <div class="skeleton h-40"></div>
+          </div>
+          <div class="skeleton h-48 w-full"></div>
+        </div>
+      </div>
+
+      <!-- RESULTS STATE (hidden until data arrives) -->
+      <div id="results-state" class="hidden flex flex-col gap-stack-gap-lg">
+
+        <!-- Key Insights -->
+        <section class="soft-card rounded-xl p-card-padding fade-in">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="material-symbols-outlined text-primary">insights</span>
+            <h3 class="font-title-md text-title-md">Key Insights</h3>
+          </div>
+          <ul id="insights-list" class="space-y-4"></ul>
+        </section>
+
+        <!-- Experience Tip -->
+        <section id="experience-tip-section" class="glass-highlight rounded-xl p-card-padding fade-in">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="material-symbols-outlined text-primary">tips_and_updates</span>
+            <span class="font-label-caps text-label-caps text-primary">PRO TIP</span>
+          </div>
+          <p id="experience-tip-text" class="text-on-surface text-body-lg italic"></p>
+        </section>
+
+        <!-- What This Client Values -->
+        <section class="soft-card rounded-xl p-card-padding fade-in">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="material-symbols-outlined text-primary">star</span>
+            <h3 class="font-title-md text-title-md">What This Client Values</h3>
+          </div>
+          <div id="values-grid" class="grid grid-cols-1 md:grid-cols-3 gap-stack-gap-md"></div>
+        </section>
+
+        <!-- Strategic Pitches -->
+        <section class="fade-in">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="material-symbols-outlined text-primary">record_voice_over</span>
+            <h3 class="font-title-md text-title-md">Strategic Pitches</h3>
+          </div>
+          <div id="pitches-grid" class="grid grid-cols-1 md:grid-cols-3 gap-stack-gap-md"></div>
+        </section>
+
+        <!-- Questions to Ask -->
+        <section class="soft-card rounded-xl p-card-padding fade-in">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="material-symbols-outlined text-primary">contact_support</span>
+            <h3 class="font-title-md text-title-md">Questions to Ask</h3>
+          </div>
+          <div id="questions-list" class="space-y-6"></div>
+        </section>
+
+        <!-- Start Over -->
+        <div class="flex justify-center mt-4 fade-in">
+          <button id="startOverBtn" class="bg-surface-container-high text-on-surface-variant px-8 py-4 rounded-full font-label-caps text-label-caps hover:bg-secondary-container transition-colors flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">restart_alt</span>
+            START OVER
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center gap-4 px-page-padding-h py-12 bg-surface border-t border-outline-variant/30">
+  <span class="font-label-caps text-label-caps text-secondary">APPLE B2B SALES REPRESENTATIVE TOOL</span>
+  <div class="flex gap-6">
+    <a class="text-body-sm text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+    <a class="text-body-sm text-secondary hover:text-primary transition-colors" href="#">Support</a>
+  </div>
+  <p class="text-body-sm text-on-surface-variant opacity-60">© 2025 Sales Insight Engine. All rights reserved.</p>
+</footer>
+
+<script>
+  const toneColors = {
+    "Professional": "bg-secondary-container text-on-secondary-container",
+    "Friendly": "bg-primary-fixed text-on-primary-fixed",
+    "Urgent": "bg-error-container text-on-error-container",
+  };
+
+  // File upload label update
+  document.getElementById('emailFile').addEventListener('change', function() {
+    const name = this.files[0]?.name || 'Upload Email Thread (JSON)';
+    document.getElementById('uploadText').textContent = name;
+  });
+
+  // Form submit
+  document.getElementById('insightForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const errorMsg = document.getElementById('errorMsg');
+    errorMsg.classList.add('hidden');
+
+    // Switch to output view with skeleton
+    document.getElementById('input-view').classList.add('hidden');
+    document.getElementById('output-view').classList.remove('hidden');
+    document.getElementById('skeleton-state').classList.remove('hidden');
+    document.getElementById('results-state').classList.add('hidden');
+
+    const formData = new FormData();
+    formData.append('context', document.getElementById('contextInput').value);
+    formData.append('budget', document.getElementById('budgetInput').value);
+    formData.append('profession', document.getElementById('professionInput').value);
+    const file = document.getElementById('emailFile').files[0];
+    if (file) formData.append('email_file', file);
+
+    try {
+      const res = await fetch('/analyze', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('Analysis failed. Please try again.');
+      const data = await res.json();
+      renderResults(data);
+    } catch (err) {
+      // On error: go back to input and show message
+      document.getElementById('output-view').classList.add('hidden');
+      document.getElementById('input-view').classList.remove('hidden');
+      errorMsg.textContent = err.message;
+      errorMsg.classList.remove('hidden');
+    }
+  });
+
+  function renderResults(data) {
+    // Insights
+    const insightsList = document.getElementById('insights-list');
+    insightsList.innerHTML = data.insights.map(i => `
+      <li class="flex gap-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 shrink-0"></span>
+        <p class="text-on-surface">${i}</p>
+      </li>`).join('');
+
+    // Experience tip
+    document.getElementById('experience-tip-text').textContent = `"${data.experience_tip}"`;
+
+    // Values
+    const valuesGrid = document.getElementById('values-grid');
+    valuesGrid.innerHTML = data.values.map((v, idx) => `
+      <div class="flex flex-col gap-2">
+        <span class="font-label-caps text-label-caps text-secondary">PRIORITY 0${idx + 1}</span>
+        <p class="font-title-md text-on-surface">${v}</p>
+      </div>`).join('');
+
+    // Pitches
+    const pitchesGrid = document.getElementById('pitches-grid');
+    pitchesGrid.innerHTML = data.pitches.map(p => {
+      const colorClass = toneColors[p.tone] || "bg-secondary-container text-on-secondary-container";
+      return `
+        <div class="soft-card rounded-xl p-6 flex flex-col gap-4">
+          <span class="${colorClass} px-3 py-1 rounded-full text-xs font-bold self-start">${p.tone}</span>
+          <p class="text-body-sm text-on-surface flex-grow">${p.speech}</p>
+          <button onclick="copyText(this, \`${p.speech.replace(/`/g, '\\`')}\`)" class="text-primary font-label-caps text-label-caps mt-auto flex items-center gap-1 hover:opacity-70 transition-opacity">
+            COPY PITCH <span class="material-symbols-outlined text-sm">content_copy</span>
+          </button>
+        </div>`;
+    }).join('');
+
+    // Questions
+    const questionsList = document.getElementById('questions-list');
+    questionsList.innerHTML = data.questions.map((q, idx) => `
+      <div class="flex gap-4">
+        <span class="font-display-lg text-primary opacity-20 italic shrink-0">${String(idx + 1).padStart(2, '0')}</span>
+        <p class="font-title-md">${q}</p>
+      </div>`).join('');
+
+    // Show results, hide skeleton
+    document.getElementById('skeleton-state').classList.add('hidden');
+    document.getElementById('results-state').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.innerHTML;
+      btn.innerHTML = 'COPIED <span class="material-symbols-outlined text-sm">check</span>';
+      setTimeout(() => { btn.innerHTML = original; }, 2000);
+    });
+  }
+
+  // Start over
+  document.getElementById('startOverBtn').addEventListener('click', () => {
+    document.getElementById('output-view').classList.add('hidden');
+    document.getElementById('input-view').classList.remove('hidden');
+    document.getElementById('insightForm').reset();
+    document.getElementById('uploadText').textContent = 'Upload Email Thread (JSON)';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 </body>
 </html>
